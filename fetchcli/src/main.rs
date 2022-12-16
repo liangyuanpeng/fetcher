@@ -1,17 +1,21 @@
+use tokio as tokio1;
 
 
 
-#[tokio::main]
-async fn main() {
-    println!("Hello, world!");
-   
-    // Command::new("git")
-    //     .arg("fetch")
-    //     .arg("origin")
-    //     .arg("master")
-    //     .current_dir("/home/lan/repo/git/pulsar")
-    //     .spawn()
-    //     .expect("git fetch command failed to start");
-    // tokio::spawn(print());
-    // std::thread::sleep(std::time::Duration::from_secs(3));
+// #[tokio1::main(crate = "tokio1")]
+// async fn main() {
+//     println!("Hello world");
+// }
+
+fn main() {
+    tokio::runtime::Builder::new_current_thread()
+        .enable_all()
+        // .start_paused(true)
+        .build()
+        .unwrap()
+        .block_on(async {
+            println!("Hello world");
+        })
 }
+
+//doc https://docs.rs/tokio/latest/tokio/attr.main.html

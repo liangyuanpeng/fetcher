@@ -44,7 +44,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "fetchrunner"
+name = "fetchcli"
 version = "0.1.0"
 dependencies = [
  "tokio",

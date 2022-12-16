@@ -2,13 +2,22 @@ use git2::Repository;
 use std::process::Command;
 use tokio::time;
 
-async fn print() {
+async fn fetchRepoFromGitCommand(remote: &str,branch: &str,path: &str) {
     let mut interval = time::interval(time::Duration::from_secs(1));
     loop {
         interval.tick().await;
-        println!("2333");
+        Command::new("git")
+            .arg("fetch")
+            .arg(remote)
+            .arg(branch)
+            .current_dir(path)
+            .spawn()
+            .expect("git fetch command failed to start");
+        // tokio::spawn(print());
+        // std::thread::sleep(std::time::Duration::from_secs(3));
     }
 }
+// fetchRepoFromGitCommand("origin","master","/home/lan/repo/git/pulsar")
 
 fn fetchRepoFromGitClient(){
     let repo = match Repository::open("/home/lan/repo/git/pulsar") {
