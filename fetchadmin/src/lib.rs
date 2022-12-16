@@ -19,6 +19,41 @@ pub async fn fetchRepoFromGitCommand(remote: &str,branch: &str,path: &str) {
         }
 }
 
+struct RepoInfo{
+    name: String,
+    remote: String,
+    path: String
+}
+
+pub async fn fetchReposFromGitCommand() {
+    let mut v: Vec<RepoInfo> = Vec::new();
+    let r1 = RepoInfo{
+            remote: String::from("origin"),
+            name: String::from("origin"),
+            path: String::from("origin"),
+    };
+    v.push(r1);
+
+    let mut interval = time::interval(time::Duration::from_secs(1));
+    loop {
+
+        for i in &v{
+            print!("{}",i.name)
+        }
+
+        Command::new("git")
+            .arg("fetch")
+            .arg("origin")
+            .arg("master")
+            .current_dir("/home/lan/repo/git/pulsar")
+            .spawn()
+            .expect("git fetch command failed to start");
+
+        interval.tick().await;
+
+    }
+}
+
 fn fetchRepoFromGitClient(){
     let repo = match Repository::open("/home/lan/repo/git/pulsar") {
         Ok(repo) => repo,
