@@ -2,5 +2,6 @@
 members = [
     "fetchadmin",
     "fetchcli",
-    "fetchui"
+    "fetchui",
+    "oci-cache"
 ]

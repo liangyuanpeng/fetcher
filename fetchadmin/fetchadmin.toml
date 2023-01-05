@@ -1,0 +1,14 @@
+time='1h'
+
+[[repoinfo]]
+name='pulsar'
+remote = 'origin'
+path='/home/lan/repo/git/pulsar'
+branch='master'
+
+
+[[repoinfo]]
+name='bookkeeper'
+remote = 'origin'
+path='/home/lan/repo/git/bookkeeper'
+branch='master'
