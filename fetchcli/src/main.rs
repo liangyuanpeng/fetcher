@@ -13,8 +13,8 @@ use std::fs::File;
 
 fn main() {
 
+    fetchadmin::readConfig("/home/lan/repo/git/fetcher/fetchadmin/fetchadmin.toml");
     
-
     tokio::runtime::Builder::new_multi_thread()
         .worker_threads(8)
         .enable_all()
@@ -23,15 +23,15 @@ fn main() {
         .block_on(async {
 
 
-            let file_path = "sample.toml";
-            let mut file = match File::open(file_path) {
-                Ok(f) => f,
-                Err(e) => panic!("no such file {} exception:{}", file_path, e)
-            };
+            // let file_path = "sample.toml";
+            // let mut file = match File::open(file_path) {
+            //     Ok(f) => f,
+            //     Err(e) => panic!("no such file {} exception:{}", file_path, e)
+            // };
 
-            task::block_in_place(move || {
-                fetchadmin::fetchRepoFromGitCommand("origin","master","/home/lan/repo/git/pulsar");
-            });
+            // task::block_in_place(move || {
+            //     fetchadmin::fetchRepoFromGitCommand("origin","master","/home/lan/repo/git/pulsar");
+            // });
 
             println!("Hello world");
             let (tx, rx) = channel();
