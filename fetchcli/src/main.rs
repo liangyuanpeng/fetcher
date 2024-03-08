@@ -22,16 +22,17 @@ fn main() {
         .unwrap()
         .block_on(async {
 
+            // let file_path = "sample.toml";
+            // let mut file = match File::open(file_path) {
+            //     Ok(f) => f,
+            //     Err(e) => panic!("no such file {} exception:{}", file_path, e)
+            // };
 
-            let file_path = "sample.toml";
-            let mut file = match File::open(file_path) {
-                Ok(f) => f,
-                Err(e) => panic!("no such file {} exception:{}", file_path, e)
-            };
+            // task::block_in_place(move || {
+            //     fetchadmin::fetchRepoFromGitCommand("origin","master","/home/lan/repo/git/pulsar");
+            // });
 
-            task::block_in_place(move || {
-                fetchadmin::fetchRepoFromGitCommand("origin","master","/home/lan/repo/git/pulsar");
-            });
+            fetchadmin::fetchReposFromGitCommand().await;
 
             println!("Hello world");
             let (tx, rx) = channel();

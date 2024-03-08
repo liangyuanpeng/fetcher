@@ -22,34 +22,65 @@ pub async fn fetchRepoFromGitCommand(remote: &str,branch: &str,path: &str) {
 struct RepoInfo{
     name: String,
     remote: String,
-    path: String
+    path: String,
 }
 
 pub async fn fetchReposFromGitCommand() {
     let mut v: Vec<RepoInfo> = Vec::new();
     let r1 = RepoInfo{
-            remote: String::from("origin"),
-            name: String::from("origin"),
-            path: String::from("origin"),
+        remote: String::from("origin"),
+        name: String::from("main"),
+        path: String::from("H:\\repo\\git\\oras-go"),
+    };
+    let r2 = RepoInfo{
+        remote: String::from("origin"),
+        name: String::from("master"),
+        path: String::from("H:\\repo\\git\\pulsar"),
+    };
+    let r3 = RepoInfo{
+        remote: String::from("origin"),
+        name: String::from("master"),
+        path: String::from("H:\\repo\\git\\bookkeeper"),
+    };
+    let r4 = RepoInfo{
+        remote: String::from("origin"),
+        name: String::from("master"),
+        path: String::from("H:\\repo\\git\\kafeidou"),
+    };
+    let r5 = RepoInfo{
+        remote: String::from("origin"),
+        name: String::from("main"),
+        path: String::from("H:\\repo\\git\\maquan"),
     };
     v.push(r1);
+    v.push(r2);
+    v.push(r3);
 
-    let mut interval = time::interval(time::Duration::from_secs(1));
+    let mut interval = time::interval(time::Duration::from_secs(60*10));
     loop {
 
-        for i in &v{
-            print!("{}",i.name)
-        }
+        interval.tick().await;
 
-        Command::new("git")
+        for i in &v{
+            print!("{}",i.name);
+            Command::new("git")
             .arg("fetch")
-            .arg("origin")
-            .arg("master")
-            .current_dir("/home/lan/repo/git/pulsar")
+            .arg(i.remote.to_string())
+            .arg(i.name.to_string())
+            .current_dir(i.path.to_string())
             .spawn()
             .expect("git fetch command failed to start");
+        }
 
-        interval.tick().await;
+        // Command::new("git")
+        //     .arg("fetch")
+        //     .arg("origin")
+        //     .arg("master")
+        //     .current_dir("/home/lan/repo/git/pulsar")
+        //     .spawn()
+        //     .expect("git fetch command failed to start");
+
+        
 
     }
 }
